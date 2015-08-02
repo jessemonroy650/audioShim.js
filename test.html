@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>Audio Test</title>
+    <meta name="viewport" content="width=device-width" />
+    <style></style>
+    <script type='text/javascript' src="js/zepto-1.1.6.js"></script>
+    <script type='text/javascript' src="audioShim.js"></script>
+    <script>
+    </script>
+  </head>
+<body onload="onDeviceReady()">
+	<center>
+	<h2>Audio Test</h2>
+	<audio id=audioStub > <!-- Usher_Yeah1.ogg -->
+		Your browser does not support the <code>audio</code> element. This stub is only intended for webpages.
+	</audio><br>
+	<button id=play>Play</button> <button id=pause>Pause</button> 
+	Loop it: <input id=loopit type=checkbox >
+	</center>
+</body>
+<script>
+function onDeviceReady() {
+	WA = WebAudio('a.ogg', 'audioStub', false); // set to 'true' for audioplay
+	$('#play').click(function(e) {
+		console.log("play audio");
+		WA.playAudio(); 
+	});
+	$('#pause').click(function(e) {
+		console.log("pause audio");
+		WA.pauseAudio();
+	});
+	$('#loopit').click(function(e) {
+		console.log("loop audio");
+		WA.loopAudio();
+	});
+}
+</script>
+</html>
