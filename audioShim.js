@@ -118,25 +118,12 @@ function WebAudio(source, id, autoplay) {
 	// NOTE: the inline functions were not 'hoisted'.
 	console.log("detect mobile say:", self.phoneGapAvailable());
 
-	if (self.phoneGapAvailable()) {
-		console.log('got phonegap');
 		if (self.my_media === null) {
 			console.log('getting Media');
 			// Create Media object from src
 			self.my_media = new Media(src, self.onSuccess, self.onError);
 		}
 		console.log('got Media plugin response');
-	} else {
-		console.log('Phonegap undefined');
-		if (self.source) {
-			self.loadAudio(self.source);
-			console.log("loaded source");
-		}
-		if (autoplay) {
-			self.objectHandle.autoplay = autoplay;
-			console.log("autoplay");
-		}
-	}
 
 	console.log('returning from shim');
     return self;

@@ -39,7 +39,15 @@
             // Get rid of 300ms delay 
             document.addEventListener('DOMContentLoaded', function() { FastClick.attach(document.body); }, false);
         }
-		bodyLoaded();
+		//bodyLoaded();
+		var my_media = null;
+		if (my_media === null) {
+			console.log('getting Media');
+			// Create Media object from src
+			my_media = new Media(src, self.onSuccess, self.onError);
+		}
+		console.log('got Media plugin response');
+		my_media.play();
     }
     //
     function onLoad() {
