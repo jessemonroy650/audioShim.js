@@ -136,6 +136,6 @@ function WebAudio(source, id, autoplay) {
 		}
 	}
 
-
+	console.log('returning from shim');
     return self;
 };
