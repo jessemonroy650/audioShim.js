@@ -30,8 +30,12 @@ function WebAudio(source, id, autoplay) {
     self.elementId    = id;
     self.objectHandle = document.getElementById(self.elementId);
     // Phonegap ONLY
+	self.androidRoot  = '/android_asset/www/';
+	self.iOSRoot      = '';
+	self.playbackRoot = null;
     self.my_media     = null;
     self.loop_it      = false; // used to fake an audio loop
+	self.paused       = false;
 
     self.phoneGapAvailable = function() {
         //  http://stackoverflow.com/questions/8068052/phonegap-detect-if-running-on-desktop-browser
@@ -55,7 +59,7 @@ function WebAudio(source, id, autoplay) {
         if (self.phoneGapAvailable()) {
             if (self.my_media === null) {
                 // Create Media object from src
-                self.my_media = new Media('/android_asset/www/' + src, onSuccess, onError);
+                self.my_media = new Media(self.playbackRoot + src, onSuccess, onError);
             } // else play current audio
             // Play audio
             self.my_media.play();
@@ -70,7 +74,11 @@ function WebAudio(source, id, autoplay) {
     self.pauseAudio = function ( ) {
         if (self.phoneGapAvailable()) {
             if (self.my_media) {
-                self.my_media.pause();
+				if (self.paused) {
+            		self.my_media.play();
+				} else {
+                	self.my_media.pause();
+				}
             }
         } else {
             if ( self.objectHandle.paused ) {
@@ -120,11 +128,12 @@ function WebAudio(source, id, autoplay) {
 
     if (self.phoneGapAvailable()) {
         console.log('got phonegap');
+		self.playbackRoot = (device.platform == 'Android') ? self.androidRoot : self.iOSRoot;
         if (self.my_media === null) {
             // Create Media object from src
             console.log('source:' + self.source);
             console.log('Media:' + typeof(Media));
-            self.my_media = new Media('/android_asset/www/' + self.source, self.onSuccess, self.onError);
+            self.my_media = new Media(self.playbackRoot + self.source, self.onSuccess, self.onError);
         }
     } else {
         console.log('Phonegap undefined');
