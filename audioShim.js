@@ -55,7 +55,7 @@ function WebAudio(source, id, autoplay) {
         if (self.phoneGapAvailable()) {
             if (self.my_media === null) {
                 // Create Media object from src
-                self.my_media = new Media(src, onSuccess, onError);
+                self.my_media = new Media('/android_asset/www/' + src, onSuccess, onError);
             } // else play current audio
             // Play audio
             self.my_media.play();
@@ -124,7 +124,7 @@ function WebAudio(source, id, autoplay) {
             // Create Media object from src
             console.log('source:' + self.source);
             console.log('Media:' + typeof(Media));
-            self.my_media = new Media(self.source, self.onSuccess, self.onError);
+            self.my_media = new Media('/android_asset/www/' + self.source, self.onSuccess, self.onError);
         }
     } else {
         console.log('Phonegap undefined');
