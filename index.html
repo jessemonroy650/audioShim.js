@@ -105,7 +105,11 @@
 		myConsole.innerHTML = theArgs + "\n" + myConsole.innerHTML;
 	};
 	console.error = function() {
-        console.log();
+		theArgs = "";
+		for (var i = 0; i < arguments.length; i++) {
+			 theArgs = theArgs + JSON.stringify(arguments[i]) + ',' ;
+		}
+		myConsole.innerHTML = "Error: " + theArgs + "\n" + myConsole.innerHTML;
     };
 	window.console = console;
 </script>
