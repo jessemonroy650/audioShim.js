@@ -104,6 +104,9 @@
 		}
 		myConsole.innerHTML = theArgs + "\n" + myConsole.innerHTML;
 	};
+	console.error = function() {
+        console.log();
+    };
 	window.console = console;
 </script>
 </html>
