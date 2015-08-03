@@ -124,6 +124,7 @@ function WebAudio(source, id, autoplay) {
 			// Create Media object from src
 			self.my_media = new Media(src, self.onSuccess, self.onError);
 		}
+		console.log('got Media plugin response');
 	} else {
 		console.log('Phonegap undefined');
 		if (self.source) {
