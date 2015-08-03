@@ -40,7 +40,7 @@ function WebAudio(source, id, autoplay) {
         //return typeof(PhoneGap) != 'undefined';
     }
 
-    self.onError   = function () {alert('audioShim has a problem');};
+    self.onError   = function (e) {alert('audioShim has a problem\n' + e);};
     self.onSuccess = function () {replay();};
     self.replay    = function () {
         if (self.loop_it) {
