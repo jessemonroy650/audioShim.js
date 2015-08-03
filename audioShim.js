@@ -32,7 +32,7 @@ function WebAudio(source, id, autoplay) {
     // Phonegap ONLY
 	self.androidRoot  = '/android_asset/www/';
 	self.iOSRoot      = '';
-	self.playbackRoot = null;
+	self.playbackRoot = null;  // set on initialization time
     self.my_media     = null;
     self.loop_it      = false; // used to fake an audio loop
 	self.paused       = false;
@@ -75,8 +75,10 @@ function WebAudio(source, id, autoplay) {
         if (self.phoneGapAvailable()) {
             if (self.my_media) {
 				if (self.paused) {
+					self.paused = false;
             		self.my_media.play();
 				} else {
+					self.paused = true;
                 	self.my_media.pause();
 				}
             }
