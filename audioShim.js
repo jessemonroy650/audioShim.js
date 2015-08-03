@@ -41,8 +41,8 @@ function WebAudio(source, id, autoplay) {
     }
 
     self.onError   = function (e) {alert('audioShim has a problem\n' + JSON.stringify(e));};
-    self.onSuccess = function () {replay();};
-    self.replay    = function () {
+    self.onSuccess = function ()  {self.replay();};
+    self.replay    = function ()  {
         if (self.loop_it) {
             self.playAudio();
         }
