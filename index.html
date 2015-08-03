@@ -69,6 +69,8 @@
 <div class="copyright">
     <span id=copyright>Created by Jesus Monroy, Jr. &copy; 2015</span>
 </div>
+<pre id=dbug_console>
+</pre>
 </body>
 <script>
 function bodyLoaded() {
@@ -86,5 +88,20 @@ function bodyLoaded() {
 		WA.loopAudio();
 	});
 }
+	/* http://stackoverflow.com/questions/7042611/override-console-log-for-production */
+	var myConsole = null;
+	myConsole = document.getElementById("dbug_console");
+
+	var console = {};
+	var theArgs = "";
+	// http://stackoverflow.com/questions/4116608/pass-unknown-number-of-arguments-into-javascript-function
+	console.log = function() {
+		theArgs = "";
+		for (var i = 0; i < arguments.length; i++) {
+			 theArgs = theArgs + JSON.stringify(arguments[i]) + ',' ;
+		}
+		myConsole.innerHTML = theArgs + "\n" + myConsole.innerHTML;
+	};
+	window.console = console;
 </script>
 </html>
