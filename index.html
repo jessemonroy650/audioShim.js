@@ -42,7 +42,7 @@
     }
     //
     function onLoad() {
-        //alert("body loaded.");
+        alert("body loaded.");
 		bodyLoaded();
     }
     </script>
@@ -73,21 +73,23 @@
 </pre>
 </body>
 <script>
-function bodyLoaded() {
-	WA = WebAudio('a.ogg', 'audioStub', false); // set to 'true' for audioplay
-	$('#play').click(function(e) {
-		console.log("play audio");
-		WA.playAudio(); 
-	});
-	$('#pause').click(function(e) {
-		console.log("pause audio");
-		WA.pauseAudio();
-	});
-	$('#loopit').click(function(e) {
-		console.log("loop audio");
-		WA.loopAudio();
-	});
-}
+	function bodyLoaded() {
+		console.log('bodyLoaded');
+		WA = WebAudio('a.ogg', 'audioStub', false); // set to 'true' for audioplay
+		$('#play').click(function(e) {
+			console.log("play audio");
+			WA.playAudio(); 
+		});
+		$('#pause').click(function(e) {
+			console.log("pause audio");
+			WA.pauseAudio();
+		});
+		$('#loopit').click(function(e) {
+			console.log("loop audio");
+			WA.loopAudio();
+		});
+		console.log('bodyLoaded - done');
+	}
 	/* http://stackoverflow.com/questions/7042611/override-console-log-for-production */
 	var myConsole = null;
 	myConsole = document.getElementById("dbug_console");
