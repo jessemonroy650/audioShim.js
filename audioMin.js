@@ -56,98 +56,51 @@ function WebAudio(source, id, autoplay) {
     //
     self.playAudio = function (src) {
 
-        if (self.phoneGapAvailable()) {
-            if (self.my_media === null) {
-                // Create Media object from src
-                self.my_media = new Media(self.playbackRoot + src, onSuccess, onError);
-            } // else play current audio
-            // Play audio
-            self.my_media.play();
-        } else {
-            if (src) {
-                self.loadAudio(src);
-            }
-            self.objectHandle.play();
-        }
+        if (self.my_media === null) {
+            // Create Media object from src
+            self.my_media = new Media(self.playbackRoot + src, onSuccess, onError);
+        } // else play current audio
+        // Play audio
+        self.my_media.play();
     };
 
     self.pauseAudio = function ( ) {
-        if (self.phoneGapAvailable()) {
-            if (self.my_media) {
-                if (self.paused) {
-                    self.paused = false;
-                    self.my_media.play();
-                } else {
-                    self.paused = true;
-                    self.my_media.pause();
-                }
-            }
-        } else {
-            if ( self.objectHandle.paused ) {
-                self.objectHandle.play();
+        if (self.my_media) {
+            if (self.paused) {
+                self.paused = false;
+                self.my_media.play();
             } else {
-                self.objectHandle.pause();
+                self.paused = true;
+                self.my_media.pause();
             }
         }
     };
 
     self.stopAudio = function ( ) {
-        if (self.phoneGapAvailable()) {
-            if (self.my_media) {
-                self.my_media.stop();
-            }
-        } else {
-            // There is no stop Audio function in Mozilla.
-            // HACK: Pause the audio and remove the source.
-            self.objectHandle.pause();
-            self.objectHandle.src = '';
+        if (self.my_media) {
+            self.my_media.stop();
         }
     };
 
     self.loadAudio = function (src) {
-        self.objectHandle.src = src;
-        self.objectHandle.load();
     };
 
     self.loopAudio = function ( ) {
-        if (self.phoneGapAvailable()) {
-            if ( self.loop_it ) {
-                self.loop_it = false;
-            } else {
-                self.loop_it = true;
-            }
+        if ( self.loop_it ) {
+            self.loop_it = false;
         } else {
-            if ( self.objectHandle.loop ) {
-                self.objectHandle.loop = false;
-            } else {
-                self.objectHandle.loop = true;
-            }
+            self.loop_it = true;
         }
     };
 
     // NOTE: the inline functions were not 'hoisted'.
     console.log("detect mobile say:", self.phoneGapAvailable());
 
-    if (self.phoneGapAvailable()) {
-        console.log('got phonegap');
-        self.playbackRoot = (device.platform == 'Android') ? self.androidRoot : self.iOSRoot;
-        if (self.my_media === null) {
-            // Create Media object
-            self.my_media = new Media(self.playbackRoot + self.source, self.onSuccess, self.onError);
-        }
-
-    } else {
-        console.log('Phonegap undefined');
-        if (self.source) {
-            self.loadAudio(self.source);
-            console.log("loaded source");
-        }
-        if (autoplay) {
-            self.objectHandle.autoplay = autoplay;
-            console.log("autoplay");
-        }
+    self.playbackRoot = (device.platform == 'Android') ? self.androidRoot : self.iOSRoot;
+    if (self.my_media === null) {
+        // Create Media object
+        self.my_media = new Media(self.playbackRoot + self.source, self.onSuccess, self.onError);
     }
 
-    console.log('returning from shim');
     return self;
 };

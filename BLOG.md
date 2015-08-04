@@ -1,6 +1,7 @@
 # BLOG #
 Date: 2015-08-03
 
+wrote/salvaged consoleShim
 
 error in reverse order
 
